@@ -1,0 +1,19 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row > div[class*="col-"] {
+  display: flex;
+}
+.card-deck {
+  display: flex;
+  flex-wrap: row;
+}
+.col-md-3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.card {
+  width: 33%;
+  display: flex;
+}

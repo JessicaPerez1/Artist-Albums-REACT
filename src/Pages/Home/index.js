@@ -1,5 +1,6 @@
 //React Components and Hooks
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 //Bootstrap components
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,25 +8,35 @@ import Col from "react-bootstrap/Col";
 //Custom Components
 import AlbumCard from "./AlbumCard";
 import "./index.css";
+//API
+import fetchData from "../../Utils/API";
 
 const Homepage = () => {
   const [albumState, setAlbumState] = useState([]);
   useEffect(() => {
     // For demonstration purposes, we mock an API call.
-    let albums = API.getAlbums.then((albums) => {
-      setAlbumState(albums);
-    });
+    let albums = fetchData();
+    setAlbumState(albums);
   }, []);
 
-  const dummyData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   return (
     <Container>
       <Row>
-        {dummyData.map((data) => (
-          <Col md={3}>
-            <AlbumCard />
-          </Col>
-        ))}
+        {albumState.length ? (
+          albumState.map((data) => (
+            <Col key={data.id} md={3}>
+              <Link to={`/albums/${data.id}`}>
+                <AlbumCard
+                  title={data.title}
+                  cover={data.cover}
+                  artist={data.artist}
+                />
+              </Link>
+            </Col>
+          ))
+        ) : (
+          <div />
+        )}
       </Row>
     </Container>
   );
